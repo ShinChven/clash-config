@@ -2,6 +2,7 @@
 
 > - Clash config generator.
 > - Proxies and rules are separated into different files.
+> - Run `clash-config` to generate clash configuration file.
 
 This project is under development.
 
