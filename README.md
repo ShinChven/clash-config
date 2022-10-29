@@ -79,7 +79,7 @@ cipher: auto
 
 ## Config Directory Explanation
 
-After this program is used, here what's in your clash config directory.
+After this program is used, here what's in your clash config directory `~/.config/clash`.
 
 ```text
 ├── base.yaml               # base config
