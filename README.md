@@ -1,7 +1,8 @@
 # Clash Config
 
 > - Clash config generator.
-> - Proxies and rules are separated into different files.
+> - Proxies and rules are separated into different files, the program will merge them into a single file after you edited them.
+> - Config multiple proxies and rules is now an easy thing.
 > - Run `clash-config` to generate clash configuration file.
 
 ```text
