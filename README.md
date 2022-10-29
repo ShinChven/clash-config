@@ -4,6 +4,12 @@
 > - Proxies and rules are separated into different files.
 > - Run `clash-config` to generate clash configuration file.
 
+```text
+base.yaml          ──|
+proxies/*.yaml     ──|──>    config-generated.yaml
+rules/*.yaml       ──|
+```
+
 This project is under development.
 
 ## Prerequisites
