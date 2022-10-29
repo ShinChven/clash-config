@@ -23,7 +23,7 @@ This project is under development.
 - Create a yaml file for each proxy provider in `~/.config/clash/proxies`.
 - [Official examples for clash configuration](https://github.com/Dreamacro/clash/wiki/configuration).
 
-Here's a short example.
+Here's some short examples.
 
 ```yaml
 name: "ss"
