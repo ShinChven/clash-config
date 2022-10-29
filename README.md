@@ -31,9 +31,9 @@ server: server
 port: 443
 cipher: chacha20-ietf-poly1305
 password: "password"
-plugin: v2ray-plugin
-plugin-opts:
-  mode: websocket # no QUIC now
+# plugin: v2ray-plugin
+# plugin-opts:
+  # mode: websocket # no QUIC now
   # tls: true # wss
   # skip-cert-verify: true
   # host: bing.com
