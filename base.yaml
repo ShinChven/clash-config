@@ -1,0 +1,13 @@
+port: 3333
+socks-port: 23456
+redir-port: 23457
+allow-lan: true
+mode: Rule
+log-level: error
+experimental:
+  ignore-resolve-fail: true
+secret: "clash"
+profile:
+  store-selected: true
+ipv6: false
+config-name: config-generated

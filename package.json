@@ -1,0 +1,22 @@
+{
+  "name": "clash-config",
+  "version": "0.0.1",
+  "description": "Clash config generator",
+  "main": "index.js",
+  "bin": {
+    "clash-config": "src/cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": {
+    "email": "shinchven@gmail.com",
+    "name": "shinchven"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^10.1.0",
+    "js-yaml": "^4.1.0"
+  }
+}

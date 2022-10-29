@@ -1,0 +1,29 @@
+name: 🎮 Gaming Platforms
+rules:
+  - DOMAIN-SUFFIX,epicgames.com
+  - DOMAIN-SUFFIX,helpshift.com
+  - DOMAIN-SUFFIX,paragon.com
+  - DOMAIN-SUFFIX,unrealengine.com
+  - DOMAIN-SUFFIX,playstation.com
+  - DOMAIN-SUFFIX,playstation.net
+  - DOMAIN-SUFFIX,playstationnetwork.com
+  - DOMAIN-SUFFIX,sony.com
+  - DOMAIN-SUFFIX,sonyentertainmentnetwork.com
+  - DOMAIN-SUFFIX,fanatical.com
+  - DOMAIN-SUFFIX,humblebundle.com
+  - DOMAIN-SUFFIX,steamcommunity.com
+  - DOMAIN-SUFFIX,riotcdn.net
+  - DOMAIN-SUFFIX,wr.pvp.net
+  - DOMAIN-SUFFIX,riotgames.com
+  - DOMAIN-KEYWORD,rockstargames
+  - DOMAIN,a.rsg.sc
+  - DOMAIN,gamedownloads-rockstargames-com.akamaized.net
+  - DOMAIN,media-rockstargames-com.akamaized.net
+  - DOMAIN,videos-rockstargames-com.akamaized.net
+  - DOMAIN,rockstarsupport.goquiq.com
+  - DOMAIN,ocsp.entrust.net
+  - DOMAIN,stats.g.doubleclick.net
+  - DOMAIN,static.quiq-cdn.com
+  - DOMAIN-SUFFIX,recaptcha.net
+  - DOMAIN-SUFFIX,rockstargames.com
+  - DOMAIN-SUFFIX,store.steampowered.com
