@@ -4,7 +4,7 @@
   "description": "Clash config generator",
   "main": "index.js",
   "bin": {
-    "clash-config": "src/cli.js"
+    "clash-config": "src/cli/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -1,13 +1,10 @@
-#!/usr/bin/env node
-
-const {generateConfig} = require('../src');
-const yaml = require('js-yaml');
-const fs = require('fs-extra');
-const path = require('path');
+const {generateConfig} = require('../index');
 const os = require('os');
+const path = require('path');
+const fs = require('fs-extra');
+const yaml = require('js-yaml');
 
-
-(async () => {
+const generateConfigFile = async () => {
   console.log('Generating config...');
   const home = os.homedir();
   const config = await generateConfig();
@@ -15,10 +12,6 @@ const os = require('os');
   const outputPath = path.resolve(home, '.config', 'clash', `${configName}.yaml`);
   await fs.outputFile(outputPath, yaml.dump(config));
   console.log('Clash config file generated at', outputPath);
-})().then(() => {
-  process.exit(0);
-}).catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+}
 
+module.exports = generateConfigFile;

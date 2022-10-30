@@ -1,12 +1,8 @@
 const fs = require('fs-extra');
 const path = require('path');
 const yaml = require('js-yaml');
-const os = require('os');
+const {PROXIES_DIR, RULES_DIR, BASE_CONFIG_PATH} = require('./paths');
 
-const BASE_PATH = path.resolve(os.homedir(), '.config', 'clash');
-const PROXIES_DIR = path.resolve(BASE_PATH, 'proxies');
-const RULES_DIR = path.resolve(BASE_PATH, 'rules');
-const BASE_CONFIG_PATH = path.resolve(BASE_PATH, 'base.yaml');
 
 const loadProxies = async () => {
   const proxies = [];
@@ -79,14 +75,16 @@ const loadRuleGroups = async () => {
   const ruleGroupsDirExists = await fs.pathExists(RULES_DIR);
   if (!ruleGroupsDirExists) {
     console.log('Rules directory does not exist. Copying default.');
-    await fs.copy(path.resolve(__dirname,'../rules'), RULES_DIR);
+    await fs.copy(path.resolve(__dirname, '../rules'), RULES_DIR);
   }
   const rules = [];
   const files = await fs.readdir(RULES_DIR);
   for (const file of files) {
     if (path.extname(file) === '.yaml') {
-      const str = await fs.readFile(path.resolve(RULES_DIR, file), 'utf8');
+      let ruleGroupFilePath = path.resolve(RULES_DIR, file);
+      const str = await fs.readFile(ruleGroupFilePath, 'utf8');
       const rule = yaml.load(str);
+      rule.filepath = ruleGroupFilePath;
       rules.push(rule);
     }
   }
@@ -181,4 +179,5 @@ const generateConfig = async () => {
 module.exports = {
   loadBaseConfig,
   generateConfig,
+  loadRuleGroups,
 }
