@@ -1,6 +1,6 @@
 {
   "name": "clash-config",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "Clash config generator",
   "main": "index.js",
   "bin": {
