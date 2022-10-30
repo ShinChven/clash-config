@@ -4,6 +4,10 @@ const path = require('path');
 const fs = require('fs-extra');
 const yaml = require('js-yaml');
 
+/**
+ * Add a rule.
+ * @returns {Promise<void>}
+ */
 const addRule = async () => {
   const [, , , domain, ruleGroupName = 'My Rules', ruleType = 'DOMAIN-SUFFIX'] = process.argv;
   if (!domain) {

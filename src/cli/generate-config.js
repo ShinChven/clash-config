@@ -4,6 +4,10 @@ const path = require('path');
 const fs = require('fs-extra');
 const yaml = require('js-yaml');
 
+/**
+ * Generate the config file.
+ * @returns {Promise<void>}
+ */
 const generateConfigFile = async () => {
   console.log('Generating config...');
   const home = os.homedir();

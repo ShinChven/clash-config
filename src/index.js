@@ -3,7 +3,10 @@ const path = require('path');
 const yaml = require('js-yaml');
 const {PROXIES_DIR, RULES_DIR, BASE_CONFIG_PATH} = require('./paths');
 
-
+/**
+ * Load proxies from the proxies' directory.
+ * @returns {Promise<*[]>}
+ */
 const loadProxies = async () => {
   const proxies = [];
 
@@ -18,6 +21,11 @@ const loadProxies = async () => {
   return proxies;
 }
 
+/**
+ * Generate the base proxy groups.
+ * @param _proxies
+ * @returns {Promise<({name: string, proxies: (string|string)[], type: string}|{name: string, interval: number, proxies: *, type: string, url: string, tolerance: number}|{name: string, interval: number, proxies: *, type: string, url: string}|{name: string, interval: number, proxies: *, type: string, strategy: string, url: string}|{name: string, proxies: *, type: string})[]>}
+ */
 const generateBaseProxyGroups = async (_proxies) => {
   const url = 'http://www.gstatic.com/generate_204';
   const proxies = _proxies.map((proxy) => proxy.name);
@@ -71,6 +79,10 @@ const generateBaseProxyGroups = async (_proxies) => {
 
 }
 
+/**
+ * Load rule groups from the rules' directory.
+ * @returns {Promise<*[]>}
+ */
 const loadRuleGroups = async () => {
   const ruleGroupsDirExists = await fs.pathExists(RULES_DIR);
   if (!ruleGroupsDirExists) {
@@ -91,6 +103,12 @@ const loadRuleGroups = async () => {
   return rules;
 }
 
+/**
+ * Generate the proxy groups.
+ * @param baseProxyGroups The base proxy groups.
+ * @param ruleGroups The rule groups saved in files.
+ * @returns {*[]}
+ */
 const generateProxyGroups = (baseProxyGroups, ruleGroups) => {
   const proxyGroups = [...baseProxyGroups];
   const proxies = baseProxyGroups.map((proxyGroup) => proxyGroup.name);
@@ -135,6 +153,11 @@ const generateProxyGroups = (baseProxyGroups, ruleGroups) => {
 
 }
 
+/**
+ * Generate the rules array.
+ * @param ruleGroups
+ * @returns {string[]}
+ */
 const generateRules = (ruleGroups) => {
   const rules = [];
   for (const ruleGroup of ruleGroups) {
@@ -148,6 +171,10 @@ const generateRules = (ruleGroups) => {
   return rules;
 }
 
+/**
+ * Load base config from file.
+ * @returns {Promise<*>}
+ */
 const loadBaseConfig = async () => {
   const baseConfigExists = await fs.pathExists(BASE_CONFIG_PATH);
   if (!baseConfigExists) {
@@ -157,6 +184,10 @@ const loadBaseConfig = async () => {
   return yaml.load(input);
 }
 
+/**
+ * Generate the config object that can be parsed to yaml.
+ * @returns {Promise<any>}
+ */
 const generateConfig = async () => {
 
   const proxies = await loadProxies();
