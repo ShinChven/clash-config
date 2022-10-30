@@ -12,14 +12,25 @@ rules/*.yaml       ──|
 
 ## Usage
 
-### Generate Config
+### Generate Config File
 
 ```bash
 # Generate the config file
 clash-config
 ```
 
-### Add Rule
+### Add A Proxy Config
+
+```bash
+# Add a proxy
+clash-config add-proxy <uri> [name]
+```
+
+- uri: The proxy uri, `ss://` and `vmess://` are supported.
+- name: The proxy name, if not provided, the proxy name will be generated automatically.
+
+
+### Add A Rule Config
 
 ```bash
 # Add a rule to rule group, 
