@@ -56,7 +56,7 @@ This project is under development.
 - Run `npm install` to install dependencies.
 - Run `npm link` to link this project to your global env, `clash-config` command will be available.
 
-## Add Proxy Configurations
+## Proxy Configurations
 
 - Create a yaml file for each proxy provider in `~/.config/clash/proxies`.
 - [Official examples for clash configuration](https://github.com/Dreamacro/clash/wiki/configuration).
