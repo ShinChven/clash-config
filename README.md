@@ -115,7 +115,18 @@ cipher: auto
 - Default rules will be copy to your clash config directory if `~/.config/clash/rules` not exists.
 - Please see an example on how to config rules in [`~/.config/clash/rules/`](/rules).
 
-## Config Directory Explanation
+## Rules Explained
+
+- Main: The default rule to choose from the following modes:
+  - Lowest latency: Choose the proxy with the lowest latency.
+  - Fallback
+  - Load balance
+  - Manual: You can choose a proxy manually.
+  - DIRECT: Direct connection.
+- Rule Groups:
+  - Choose from the proxy modes above or 'DIRECT' or 'REJECT'.
+
+## Config Directory Explained
 
 After this program is used, here what's in your clash config directory `~/.config/clash`.
 
