@@ -1,15 +1,35 @@
 # Clash Config
 
 > - Clash config generator.
-> - Proxies and rules are separated into different files, the program will merge them into a single file after you edited them.
-> - Config multiple proxies and rules is now an easy thing.
-> - Run `clash-config` to generate clash configuration file.
+> - Proxies and rules are separated into different files, this generator will merge them and generate rule groups.
+> - Editing clash config now is an easy thing.
 
 ```text
 base.yaml          ──|
 proxies/*.yaml     ──|──>    config-generated.yaml
 rules/*.yaml       ──|
 ```
+
+## Usage
+
+### Generate Config
+
+```bash
+# Generate the config file
+clash-config
+```
+
+### Add Rule
+
+```bash
+# Add a rule to rule group, 
+# GROUP_NAME is optional, if the value is empty or the group does not exist, the default group "My Rules" will be used.
+# RULE_TYPE is optional, the default value is "DOMAIN-SUFFIX"
+clash-config add-rule <RULE_VALUE> [GROUP_NAME] [RULE_TYPE]
+clash-config add-rule google.com "My Rules" "DOMAIN-SUFFIX" 
+```
+
+After a new rule is added, you should run `clash-config` to generate or refresh the config file.
 
 This project is under development.
 
