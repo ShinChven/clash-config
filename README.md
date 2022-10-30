@@ -118,7 +118,7 @@ cipher: auto
 ## Rules Explained
 
 - Main: The default rule to choose from the following modes:
-  - Lowest latency: Choose the proxy with the lowest latency.
+  - Low latency: Choose the proxy with the lowest latency.
   - Fallback
   - Load balance
   - Manual: You can choose a proxy manually.
