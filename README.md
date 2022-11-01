@@ -44,6 +44,14 @@ After a new rule is added, you should run `clash-config` to generate or refresh 
 
 This project is under development.
 
+### Search Rule
+
+Search the managed rule. Those you edited manually will not be searched.
+
+```bash
+clash-config search-rule <RULE_VALUE>
+```
+
 ## Prerequisites
 
 - bash
