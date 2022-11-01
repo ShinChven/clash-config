@@ -2,6 +2,7 @@
 const generateConfigFile = require('./generate-config');
 const addRule = require('./add-rule');
 const addProxy = require('./add-proxy');
+const searchRule = require('./search-rule');
 
 const [, , action] = process.argv;
 
@@ -17,6 +18,9 @@ const [, , action] = process.argv;
       break;
     case 'add-rule':
       await addRule();
+      break;
+    case 'search-rule':
+      await searchRule();
       break;
     default:
       console.log('Unknown action', action);

@@ -186,7 +186,7 @@ const loadBaseConfig = async () => {
 
 /**
  * Generate the config object that can be parsed to yaml.
- * @returns {Promise<any>}
+ * @returns {Promise<{proxies: any[], rules: string[],'proxy-groups':any[]}>}
  */
 const generateConfig = async () => {
 

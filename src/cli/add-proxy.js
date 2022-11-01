@@ -50,6 +50,7 @@ const addSSProxy = async (uri) => {
     password,
     server,
     port: parseInt(port, 10),
+    originalUri: uri,
   }
   let yml = yaml.dump(proxy, {indent: 2});
   await fs.outputFile(proxyFilePath, yml);
@@ -90,6 +91,7 @@ const addSSRProxy = async (uri) => {
     obfs,
     "obfs-host": paramsObj.obfsparam,
     "udp": true,
+    originalUri: uri,
   }
   const yml = yaml.dump(proxy, {indent: 2});
   await fs.outputFile(proxyFilePath, yml);
@@ -125,6 +127,7 @@ const addVmessProxy = async (uri) => {
     cipher: "auto",
     tls: false,
     "skip-cert-verify": false,
+    originalUri: uri,
   }
   const yml = yaml.dump(proxy, {indent: 2});
   await fs.outputFile(proxyFilePath, yml);
