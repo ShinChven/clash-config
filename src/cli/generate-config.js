@@ -3,6 +3,7 @@ const os = require('os');
 const path = require('path');
 const fs = require('fs-extra');
 const yaml = require('js-yaml');
+const {stringToSafeFilename} = require('../utils/string');
 
 /**
  * Generate the config file.
@@ -13,7 +14,7 @@ const generateConfigFile = async () => {
   const home = os.homedir();
   const config = await generateConfig();
   const configName = config['config-name'] || 'config-gen';
-  const outputPath = path.resolve(home, '.config', 'clash', `${configName}.yaml`);
+  const outputPath = path.resolve(home, '.config', 'clash', `${stringToSafeFilename(configName)}.yaml`);
   await fs.outputFile(outputPath, yaml.dump(config));
   console.log('Clash config file generated at', outputPath);
 }

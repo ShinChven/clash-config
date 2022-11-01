@@ -4,6 +4,7 @@ const path = require('path');
 const url = require('url');
 
 const {PROXIES_DIR} = require('../paths');
+const {stringToSafeFilename} = require('../utils/string');
 
 /**
  * Decode base64 string.
@@ -37,7 +38,7 @@ const addSSProxy = async (uri) => {
 
   const name = proxy_name || hash || `ss-${server}-${port}`;
 
-  const proxyFilePath = path.resolve(PROXIES_DIR, `${name}.yaml`);
+  const proxyFilePath = path.resolve(PROXIES_DIR, `${stringToSafeFilename(name)}.yaml`);
 
   if (fs.pathExistsSync(proxyFilePath)) {
     return alertExists(proxyFilePath);
@@ -76,7 +77,7 @@ const addSSRProxy = async (uri) => {
     paramsObj[key] = value;
   });
   const name = proxy_name || hash || `ssr-${server}-${port}`;
-  const proxyFilePath = path.resolve(PROXIES_DIR, `${name}.yaml`);
+  const proxyFilePath = path.resolve(PROXIES_DIR, `${stringToSafeFilename(name)}.yaml`);
   if (fs.pathExistsSync(proxyFilePath)) {
     return alertExists(proxyFilePath);
   }
@@ -113,7 +114,7 @@ const addVmessProxy = async (uri) => {
   const data = JSON.parse(decoded);
   const {id, port, add} = data;
   const name = proxy_name || hash || `vmess-${add}-${port}`;
-  const proxyFilePath = path.resolve(PROXIES_DIR, `${name}.yaml`);
+  const proxyFilePath = path.resolve(PROXIES_DIR, `${stringToSafeFilename(name)}.yaml`);
   if (fs.pathExistsSync(proxyFilePath)) {
     return alertExists(proxyFilePath);
   }
