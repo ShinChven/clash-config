@@ -11,3 +11,13 @@ profile:
   store-selected: true
 ipv6: false
 config-name: config-generated
+
+#dns:
+#  enable: true
+#  listen: :53
+#  enhanced-mode: redir-host
+#  nameserver:
+#    - 114.114.114.114
+#    - 223.5.5.5
+#  fallback:
+#    - 8.8.8.8
