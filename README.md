@@ -119,6 +119,9 @@ cipher: auto
 
 ## Manage Rules
 
+> Preset rules in this project are collected from other projects like [ACL4SSR](https://github.com/ACL4SSR/ACL4SSR). 
+> You should manage your own rules.
+
 - Create a yaml file for each rule group in `~/.config/clash/rules`.
 - Default rules will be copy to your clash config directory if `~/.config/clash/rules` not exists.
 - Please see an example on how to config rules in [`~/.config/clash/rules/`](/rules).
