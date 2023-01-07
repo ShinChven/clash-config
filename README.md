@@ -5,9 +5,10 @@
 > - Editing clash config now is an easy thing.
 
 ```text
-base.yaml          ──|
-proxies/*.yaml     ──|──>    config-generated.yaml
-rules/*.yaml       ──|
+base.yaml             ──|
+proxies/*.yaml        ──|──>    config-generated.yaml
+subscriptions/*.yaml  ──|
+rules/*.yaml          ──|
 ```
 
 ## Usage
