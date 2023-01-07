@@ -13,6 +13,21 @@ const subscribeToClash = async (url, name = new Date().getTime() + '') => {
   config.subscription_type = 'clash';
   await fs.ensureDir(SUBSCRIPTIONS_DIR);
   await fs.outputFile(path.resolve(SUBSCRIPTIONS_DIR, `${name}.yaml`), yaml.dump(config));
+  console.log('subscription loaded:', url , name);
+}
+
+const updateSubscriptions = async () => {
+  const files = await fs.readdir(SUBSCRIPTIONS_DIR);
+  for (const file of files) {
+    if (path.extname(file) === '.yaml') {
+      const subscription_filepath = path.resolve(SUBSCRIPTIONS_DIR, file);
+      const str = await fs.readFile(subscription_filepath, 'utf8');
+      const subscription = yaml.load(str);
+      if (subscription.subscription_type === 'clash') {
+        await subscribeToClash(subscription.subscription_url, subscription.subscription_name);
+      }
+    }
+  }
 }
 
 const subscribe = async () => {
@@ -26,4 +41,4 @@ const subscribe = async () => {
   }
 }
 
-module.exports = {subscribe, subscribeToClash};
+module.exports = {subscribe, updateSubscriptions, subscribeToClash};
