@@ -1,7 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 const yaml = require('js-yaml');
-const {PROXIES_DIR, RULES_DIR, BASE_CONFIG_PATH} = require('./paths');
+const {PROXIES_DIR, RULES_DIR, BASE_CONFIG_PATH, SUBSCRIPTIONS_DIR} = require('./paths');
 
 /**
  * Load proxies from the proxies' directory.
@@ -16,6 +16,25 @@ const loadProxies = async () => {
       const str = await fs.readFile(path.resolve(PROXIES_DIR, file), 'utf8');
       const proxy = yaml.load(str);
       proxies.push(proxy);
+    }
+  }
+  return proxies;
+}
+
+const loadSubscriptionsProxies = async () => {
+  const proxies = [];
+  const files = await fs.readdir(SUBSCRIPTIONS_DIR);
+  for (const file of files) {
+    if (path.extname(file) === '.yaml') {
+      const subscription_filepath = path.resolve(SUBSCRIPTIONS_DIR, file);
+      const str = await fs.readFile(subscription_filepath, 'utf8');
+      const subscription = yaml.load(str);
+      if (Array.isArray(subscription.proxies)) {
+        for (const proxy of subscription.proxies) {
+          proxy.subscription_url = subscription.subscription_url;
+          proxies.push(proxy);
+        }
+      }
     }
   }
   return proxies;
@@ -190,7 +209,9 @@ const loadBaseConfig = async () => {
  */
 const generateConfig = async () => {
 
-  const proxies = await loadProxies();
+  const proxies = await loadProxies() || [];
+  const subscriptionsProxies = await loadSubscriptionsProxies();
+  proxies.push(...subscriptionsProxies);
   const baseProxyGroups = await generateBaseProxyGroups(proxies);
   const ruleGroups = await loadRuleGroups();
   const proxyGroups = generateProxyGroups(baseProxyGroups, ruleGroups);
