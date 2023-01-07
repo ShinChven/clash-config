@@ -4,6 +4,7 @@ const addRule = require('./add-rule');
 const addProxy = require('./add-proxy');
 const searchRule = require('./search-rule');
 const {subscribe, updateSubscriptions} = require('./subscribe')
+const {BASE_PATH} = require('../paths');
 
 const [, , action] = process.argv;
 
@@ -26,8 +27,11 @@ const [, , action] = process.argv;
     case 'subscribe':
       await subscribe();
       break;
-      case 'update-subscriptions':
+    case 'update-subscriptions':
       await updateSubscriptions();
+      break;
+    case 'path':
+      console.log('config file path:', BASE_PATH);
       break;
     default:
       console.log('Unknown action', action);

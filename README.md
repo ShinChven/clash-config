@@ -29,6 +29,15 @@ clash-config add-proxy <uri> [name]
 - uri: The proxy uri, `ss://` and `vmess://` are supported.
 - name: The proxy name, if not provided, the proxy name will be generated automatically.
 
+### Add A Proxy Subscription
+
+```bash
+# Add a proxy subscription
+clash-config add-subscription <url> [name]
+```
+
+- url: The proxy subscription url.
+- name: The proxy subscription name, if not provided, the proxy subscription name will be generated automatically.
 
 ### Add A Rule Config
 
