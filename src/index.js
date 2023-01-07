@@ -32,6 +32,7 @@ const loadSubscriptionsProxies = async () => {
       if (Array.isArray(subscription.proxies)) {
         for (const proxy of subscription.proxies) {
           proxy.subscription_url = subscription.subscription_url;
+          proxy.name = [proxy.name, subscription.subscription_name].join(' - ')
           proxies.push(proxy);
         }
       }
