@@ -3,6 +3,23 @@ const fs = require('fs-extra');
 const yaml = require('js-yaml');
 const {SUBSCRIPTIONS_DIR} = require('../paths');
 const path = require('path');
+const {decodeV2raySubscription} = require('../proxy/v2ray');
+
+const subscribeToV2ray = async (url, name = new Date().getTime() + '') => {
+  const resp = await http.get(url);
+  const text = resp.text;
+  const proxies = decodeV2raySubscription(text);
+  const config = {
+    proxies,
+    subscription_url: url,
+    subscription_name: name,
+    subscription_type: 'v2ray',
+  };
+  await fs.ensureDir(SUBSCRIPTIONS_DIR);
+  await fs.outputFile(path.resolve(SUBSCRIPTIONS_DIR, `${name}.yaml`), yaml.dump(config));
+  console.log(config);
+  console.log('subscription loaded:', url, name, config.subscription_type);
+}
 
 /**
  * Subscribe to a Clash subscription.
@@ -20,7 +37,7 @@ const subscribeToClash = async (url, name = new Date().getTime() + '') => {
   config.subscription_type = 'clash';
   await fs.ensureDir(SUBSCRIPTIONS_DIR);
   await fs.outputFile(path.resolve(SUBSCRIPTIONS_DIR, `${name}.yaml`), yaml.dump(config));
-  console.log('subscription loaded:', url , name);
+  console.log('subscription loaded:', url, name, config.subscription_type);
 }
 
 /**
@@ -51,9 +68,12 @@ const subscribe = async () => {
     case 'clash':
       await subscribeToClash(url, name);
       break;
+    case 'v2ray':
+      await subscribeToV2ray(url, name);
+      break;
     default:
       console.log('Unknown subscription type', type);
   }
 }
 
-module.exports = {subscribe, updateSubscriptions, subscribeToClash};
+module.exports = {subscribe, updateSubscriptions, subscribeToClash, subscribeToV2ray};

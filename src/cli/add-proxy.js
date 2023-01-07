@@ -5,6 +5,9 @@ const url = require('url');
 
 const {PROXIES_DIR} = require('../paths');
 const {stringToSafeFilename} = require('../utils/string');
+const {decodeSSRUri} = require('../proxy/ssr');
+const {decodeSSUri} = require('../proxy/ss');
+const {decodeVmessUri} = require('../proxy/vmess');
 
 /**
  * Decode base64 string.
@@ -31,27 +34,10 @@ const alertExists = (proxyFilePath) => {
  */
 const addSSProxy = async (uri) => {
   const [, , , , proxy_name] = process.argv;
-  let [uriString, hash] = uri.split('#');
-  const uriPath = uriString.replace('ss://', '');
-  const [cipher, passwordAndDomain, port] = decodeBase64String(uriPath).split(':');
-  const [password, server] = passwordAndDomain.split('@');
-
-  const name = proxy_name || hash || `ss-${server}-${port}`;
-
-  const proxyFilePath = path.resolve(PROXIES_DIR, `${stringToSafeFilename(name)}.yaml`);
-
+  const proxy = decodeSSUri(uri, proxy_name);
+  const proxyFilePath = path.resolve(PROXIES_DIR, `${stringToSafeFilename(proxy.name)}.yaml`);
   if (fs.pathExistsSync(proxyFilePath)) {
     return alertExists(proxyFilePath);
-  }
-
-  const proxy = {
-    name,
-    type: 'ss',
-    cipher,
-    password,
-    server,
-    port: parseInt(port, 10),
-    originalUri: uri,
   }
   let yml = yaml.dump(proxy, {indent: 2});
   await fs.outputFile(proxyFilePath, yml);
@@ -67,32 +53,10 @@ const addSSProxy = async (uri) => {
  */
 const addSSRProxy = async (uri) => {
   const [, , , , proxy_name] = process.argv;
-  let [uriString, hash] = uri.split('#');
-  const uriPath = uriString.replace('ssr://', '');
-  const [server, port, protocol, method, obfs, passwordAndParams] = decodeBase64String(uriPath).split(':');
-  const [password, params] = passwordAndParams.split('/?');
-  const paramsObj = {};
-  params.split('&').forEach((param) => {
-    const [key, value] = param.split('=');
-    paramsObj[key] = value;
-  });
-  const name = proxy_name || hash || `ssr-${server}-${port}`;
-  const proxyFilePath = path.resolve(PROXIES_DIR, `${stringToSafeFilename(name)}.yaml`);
+  const proxy = decodeSSRUri(uri, proxy_name);
+  const proxyFilePath = path.resolve(PROXIES_DIR, `${stringToSafeFilename(proxy.name)}.yaml`);
   if (fs.pathExistsSync(proxyFilePath)) {
     return alertExists(proxyFilePath);
-  }
-  const proxy = {
-    name,
-    type: 'ssr',
-    server,
-    port: parseInt(port, 10),
-    cipher: method,
-    password,
-    protocol,
-    obfs,
-    "obfs-host": paramsObj.obfsparam,
-    "udp": true,
-    originalUri: uri,
   }
   const yml = yaml.dump(proxy, {indent: 2});
   await fs.outputFile(proxyFilePath, yml);
@@ -108,27 +72,10 @@ const addSSRProxy = async (uri) => {
  */
 const addVmessProxy = async (uri) => {
   const [, , , , proxy_name] = process.argv;
-  let [uriString, hash] = uri.split('#');
-  const uriPath = uriString.replace('vmess://', '');
-  const decoded = decodeBase64String(uriPath);
-  const data = JSON.parse(decoded);
-  const {id, port, add} = data;
-  const name = proxy_name || hash || `vmess-${add}-${port}`;
-  const proxyFilePath = path.resolve(PROXIES_DIR, `${stringToSafeFilename(name)}.yaml`);
+  const proxy = decodeVmessUri(uri, proxy_name);
+  const proxyFilePath = path.resolve(PROXIES_DIR, `${stringToSafeFilename(proxy.name)}.yaml`);
   if (fs.pathExistsSync(proxyFilePath)) {
     return alertExists(proxyFilePath);
-  }
-  const proxy = {
-    name,
-    type: 'vmess',
-    server: add,
-    port: parseInt(port, 10),
-    uuid: id,
-    alterId: 0,
-    cipher: "auto",
-    tls: false,
-    "skip-cert-verify": false,
-    originalUri: uri,
   }
   const yml = yaml.dump(proxy, {indent: 2});
   await fs.outputFile(proxyFilePath, yml);
