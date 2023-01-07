@@ -5,6 +5,12 @@ const {SUBSCRIPTIONS_DIR} = require('../paths');
 const path = require('path');
 const {decodeV2raySubscription} = require('../proxy/v2ray');
 
+/**
+ * Subscribe to a V2Ray subscription.
+ * @param url {string} The subscription url.
+ * @param name  {string} The subscription name and file name in subscriptions directory.
+ * @returns {Promise<void>}
+ */
 const subscribeToV2ray = async (url, name = new Date().getTime() + '') => {
   try {
     const resp = await http.get(url);

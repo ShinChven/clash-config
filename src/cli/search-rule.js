@@ -1,4 +1,9 @@
 const {generateConfig} = require('../index');
+
+/**
+ * Search a rule.
+ * @returns {Promise<void>}
+ */
 const searchRule = async () => {
   const [, , , keyword] = process.argv;
   const config = await generateConfig();
